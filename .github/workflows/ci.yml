@@ -1,3 +1,5 @@
+
+
 name: CI
 on:
   push:
@@ -17,6 +19,10 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter pub get
+      - name: Create .env file
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> .env
       - run: flutter analyze
       - run: flutter test
 
@@ -35,6 +41,8 @@ jobs:
           channel: 'stable'
       - run: flutter clean
       - run: flutter pub get
+      - name: Create .env file
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}" >> .env
       - run: flutter build apk --release
-
-
